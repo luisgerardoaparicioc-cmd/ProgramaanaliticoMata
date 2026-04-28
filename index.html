@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Programa analítico - José María Mata</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #fff8ed, #f7efe0, #ffffff);
+      color: #2b2b2b;
+    }
+
+    .contenedor {
+      width: min(1000px, 94%);
+      margin: 30px auto;
+      background: #ffffff;
+      border: 3px solid #7a1734;
+      border-radius: 18px;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
+      overflow: hidden;
+    }
+
+    header {
+      background: #7a1734;
+      color: white;
+      text-align: center;
+      padding: 28px 20px;
+    }
+
+    header h1 {
+      margin: 0 0 10px 0;
+      font-size: 44px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    header h2 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .datos-escuela {
+      background: #fff3dd;
+      padding: 18px 25px;
+      text-align: center;
+      border-bottom: 3px solid #7a1734;
+      line-height: 1.7;
+      font-size: 18px;
+      font-weight: bold;
+      color: #5c1027;
+    }
+
+    main {
+      padding: 28px;
+    }
+
+    .instrucciones {
+      background: #f8f0f3;
+      border-left: 8px solid #7a1734;
+      padding: 16px 18px;
+      margin-bottom: 25px;
+      border-radius: 10px;
+      font-size: 17px;
+      line-height: 1.5;
+    }
+
+    .formulario {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-bottom: 28px;
+    }
+
+    .grupo {
+      background: #fffaf2;
+      border: 2px solid #d8b6c3;
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    label {
+      display: block;
+      color: #7a1734;
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #7a1734;
+      border-radius: 10px;
+      font-size: 17px;
+      background: white;
+      color: #333;
+      cursor: pointer;
+    }
+
+    select:disabled {
+      background: #eeeeee;
+      border-color: #999999;
+      color: #777777;
+      cursor: not-allowed;
+    }
+
+    .resultado {
+      display: none;
+      background: #fff8ed;
+      border: 3px solid #7a1734;
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .resultado h3 {
+      margin: 0 0 14px 0;
+      color: #7a1734;
+      font-size: 30px;
+    }
+
+    .resultado p {
+      font-size: 19px;
+      line-height: 1.5;
+      margin: 10px 0;
+    }
+
+    .boton-descarga {
+      display: inline-block;
+      margin-top: 18px;
+      background: #7a1734;
+      color: white;
+      padding: 16px 26px;
+      font-size: 19px;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 12px;
+      border: 3px solid #5c1027;
+      transition: 0.25s;
+    }
+
+    .boton-descarga:hover {
+      background: #5c1027;
+      transform: scale(1.03);
+    }
+
+    .aviso {
+      display: none;
+      background: #fff3dd;
+      color: #7a1734;
+      border: 2px dashed #7a1734;
+      padding: 18px;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    footer {
+      background: #7a1734;
+      color: white;
+      text-align: center;
+      padding: 14px;
+      font-size: 15px;
+    }
+
+    @media (max-width: 850px) {
+      .formulario {
+        grid-template-columns: 1fr;
+      }
+
+      header h1 {
+        font-size: 34px;
+      }
+
+      header h2 {
+        font-size: 22px;
+      }
+
+      .datos-escuela {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="contenedor">
+    <header>
+      <h1>Programa analítico</h1>
+      <h2>Escuela Secundaria General “José María Mata”</h2>
+    </header>
+
+    <section class="datos-escuela">
+      Ciclo escolar 2025-2026<br />
+      Clave: 30DES0010R &nbsp; | &nbsp; Zona Escolar 08 &nbsp; | &nbsp; Sector 03<br />
+      Martínez de la Torre, Veracruz
+    </section>
+
+    <main>
+      <div class="instrucciones">
+        Seleccione primero el <strong>turno</strong>, después el <strong>grado</strong> y finalmente el <strong>campo formativo</strong>. Al completar la selección se mostrará el vínculo correspondiente al programa analítico.
+      </div>
+
+      <div class="formulario">
+        <div class="grupo">
+          <label for="turno">Seleccione el turno:</label>
+          <select id="turno">
+            <option value="">-- Seleccionar turno --</option>
+            <option value="Matutino">Matutino</option>
+            <option value="Vespertino">Vespertino</option>
+          </select>
+        </div>
+
+        <div class="grupo" id="grupoGrado" style="display: none;">
+          <label for="grado">Seleccione el grado:</label>
+          <select id="grado">
+            <option value="">-- Seleccionar grado --</option>
+            <option value="1">Primero</option>
+            <option value="2">Segundo</option>
+            <option value="3">Tercero</option>
+          </select>
+        </div>
+
+        <div class="grupo" id="grupoCampo" style="display: none;">
+          <label for="campo">Seleccione el campo formativo:</label>
+          <select id="campo">
+            <option value="">-- Seleccionar campo formativo --</option>
+            <option value="Lenguajes">Lenguajes</option>
+            <option value="Saberes y Pensamiento Científico">Saberes y Pensamiento Científico</option>
+            <option value="Ética, Naturaleza y Sociedades">Ética, Naturaleza y Sociedades</option>
+            <option value="De lo Humano y lo Comunitario">De lo Humano y lo Comunitario</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="aviso" id="aviso">
+        Complete las tres selecciones para mostrar el vínculo del programa analítico.
+      </div>
+
+      <div class="resultado" id="resultado">
+        <h3 id="tituloResultado"></h3>
+        <p id="descripcionResultado"></p>
+        <a id="enlaceResultado" class="boton-descarga" href="#" target="_blank" rel="noopener noreferrer">Abrir programa analítico</a>
+      </div>
+    </main>
+
+    <footer>
+      Escuela Secundaria General “José María Mata” | Programa Analítico 2025-2026
+    </footer>
+  </div>
+
+  <script>
+    const programas = {
+      "Matutino|1|Lenguajes": "https://drive.google.com/file/d/1yN6T8enAFmNZGqyOtW3-UM2tSt1VDaCD/view?usp=sharing",
+      "Matutino|2|Lenguajes": "https://drive.google.com/file/d/1026d4sh5_u1gZkGtNTIFd1OG5EJizF8z/view?usp=drive_link",
+      "Matutino|3|Lenguajes": "https://drive.google.com/file/d/1_0sA1Mp2mtC2vKnM1svZKIj1nRgR0P0h/view?usp=drive_link",
+
+      "Matutino|1|Saberes y Pensamiento Científico": "https://drive.google.com/file/d/1RORLsnGu7vDfeWd9IcZdSGt0ztTCCMhj/view?usp=drive_link",
+      "Matutino|2|Saberes y Pensamiento Científico": "https://drive.google.com/file/d/122awXfMlusMNstkKlplJBy_S3nFB_lKe/view?usp=drive_link",
+      "Matutino|3|Saberes y Pensamiento Científico": "https://drive.google.com/file/d/1fySdquSOn5iGzM4nnKpshkmgkZf4_y5v/view?usp=drive_link",
+
+      "Matutino|1|Ética, Naturaleza y Sociedades": "https://drive.google.com/file/d/1ZkoqCpBBYxFUdQ5ZwzSTmWEA0q3RQuoC/view?usp=drive_link",
+      "Matutino|2|Ética, Naturaleza y Sociedades": "https://drive.google.com/file/d/1TAdwjoPryjLZ5JVrzVBqzgrfHHhamI32/view?usp=drive_link",
+      "Matutino|3|Ética, Naturaleza y Sociedades": "https://drive.google.com/file/d/167PkbEsbyTbWCIq1o6rCbqo7-cdsjCIo/view?usp=drive_link",
+
+      "Matutino|1|De lo Humano y lo Comunitario": "https://drive.google.com/file/d/1p2J2HfmFqNOD9_C9zPMAz6FpZTTlwWJA/view?usp=drive_link",
+      "Matutino|2|De lo Humano y lo Comunitario": "https://drive.google.com/file/d/1BKVhffFzj0MIiewaCr6EfKML5gs0J_1O/view?usp=drive_link",
+      "Matutino|3|De lo Humano y lo Comunitario": "https://drive.google.com/file/d/1eGdEbhJfMT_DH02PF-hZTTwo0bVkFDrZ/view?usp=drive_link",
+
+      "Vespertino|1|Lenguajes": "https://drive.google.com/file/d/14hSuIGeCyFz_z_bC3PpeOf8_1hTKWZrx/view?usp=drive_link",
+      "Vespertino|2|Lenguajes": "https://drive.google.com/file/d/1co4sV0fFj7y5uu5SLG5R3rBhRdcJvtLh/view?usp=drive_link",
+      "Vespertino|3|Lenguajes": "https://drive.google.com/file/d/1cuuLtgKWfj6--YIPNqpt_5wo1XHsxwdu/view?usp=drive_link",
+
+      "Vespertino|1|Saberes y Pensamiento Científico": "https://drive.google.com/file/d/198cKJ3VGPUtT_kANHwcOR88TEKmDGRlu/view?usp=drive_link",
+      "Vespertino|2|Saberes y Pensamiento Científico": "https://drive.google.com/file/d/1L5LizLYha-fWZ32b2QIcb-3PWokYKoSA/view?usp=drive_link",
+      "Vespertino|3|Saberes y Pensamiento Científico": "https://drive.google.com/file/d/1pdDATyng1Xva1ZN24NJ30Yspl_ugaGf1/view?usp=drive_link",
+
+      "Vespertino|1|Ética, Naturaleza y Sociedades": "https://drive.google.com/file/d/1qg10tSvpIGJvJFuqvqE5BekplzeP4C1-/view?usp=drive_link",
+      "Vespertino|2|Ética, Naturaleza y Sociedades": "https://drive.google.com/file/d/1WFVcfZRKcPwyGDX9VNaPj4ooPebAPEnc/view?usp=drive_link",
+      "Vespertino|3|Ética, Naturaleza y Sociedades": "https://drive.google.com/file/d/1BGWwkZ5UA4pAhm601_ciQjYztOHUAYwk/view?usp=drive_link",
+
+      "Vespertino|1|De lo Humano y lo Comunitario": "https://drive.google.com/file/d/1BBWvsABBMOGLaM8rbyVyHgarikOxQv2i/view?usp=drive_link",
+      "Vespertino|2|De lo Humano y lo Comunitario": "https://drive.google.com/file/d/1W1dC4eWV8X7-nkvNMLyOvCAUW8sZUfHi/view?usp=drive_link",
+      "Vespertino|3|De lo Humano y lo Comunitario": "https://drive.google.com/file/d/1dgaPwzwQ0NkJagAuD94eqT4R3ivUZ6xN/view?usp=drive_link"
+    };
+
+    const nombresGrado = {
+      "1": "Primer grado",
+      "2": "Segundo grado",
+      "3": "Tercer grado"
+    };
+
+    const turno = document.getElementById("turno");
+    const grado = document.getElementById("grado");
+    const campo = document.getElementById("campo");
+
+    const grupoGrado = document.getElementById("grupoGrado");
+    const grupoCampo = document.getElementById("grupoCampo");
+    const resultado = document.getElementById("resultado");
+    const aviso = document.getElementById("aviso");
+
+    const tituloResultado = document.getElementById("tituloResultado");
+    const descripcionResultado = document.getElementById("descripcionResultado");
+    const enlaceResultado = document.getElementById("enlaceResultado");
+
+    turno.addEventListener("change", function () {
+      resultado.style.display = "none";
+      aviso.style.display = "block";
+      grado.value = "";
+      campo.value = "";
+      grupoCampo.style.display = "none";
+
+      if (turno.value !== "") {
+        grupoGrado.style.display = "block";
+      } else {
+        grupoGrado.style.display = "none";
+        aviso.style.display = "none";
+      }
+    });
+
+    grado.addEventListener("change", function () {
+      resultado.style.display = "none";
+      campo.value = "";
+
+      if (grado.value !== "") {
+        grupoCampo.style.display = "block";
+        aviso.style.display = "block";
+      } else {
+        grupoCampo.style.display = "none";
+      }
+    });
+
+    campo.addEventListener("change", mostrarPrograma);
+
+    function mostrarPrograma() {
+      const clave = turno.value + "|" + grado.value + "|" + campo.value;
+      const enlace = programas[clave];
+
+      if (enlace) {
+        tituloResultado.textContent = campo.value + " - " + nombresGrado[grado.value] + " - Turno " + turno.value;
+        descripcionResultado.textContent = "Documento correspondiente al Programa Analítico del campo formativo seleccionado.";
+        enlaceResultado.href = enlace;
+        resultado.style.display = "block";
+        aviso.style.display = "none";
+      } else {
+        resultado.style.display = "none";
+        aviso.style.display = "block";
+      }
+    }
+  </script>
+</body>
+</html>
